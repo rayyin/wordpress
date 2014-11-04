@@ -1,5 +1,5 @@
 <?php
-class BoardContext
+class Board_Context
 {
 
     /**

@@ -1,19 +1,19 @@
 <?php
 
 /*
-	Plugin Name: Easy Board
-	Plugin URI: http://raywp.com:8064/extend/plugins/wp-bulletin-board/
-	Description: An board for Wordpress
+	Plugin Name: EasyWP Board
+	Plugin URI: https://github.com/rayyin/wordpress
+	Description: EasyWP board module
 	Version: 1.0.0
 	Author: Ray Yin
-	Author URI: http://rayyin.com
+	Author URI: https://github.com/rayyin
 	License: GPLv2 or later
 */
 
 /**
  * @brief Declare constants for generic use and for checking to avoid a direct call from the Web
  **/
-define('__EASY_BOARD__',   TRUE);
+define('__EASYWP_BOARD__',   TRUE);
 
 /**
  *	@brief Include the necessary configuration file

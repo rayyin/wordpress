@@ -14,19 +14,19 @@ else
     @error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_WARNING ^ E_STRICT);
 }
 
-if(!defined('__EASY_BOARD__'))
+if(!defined('__EASYWP_BOARD__'))
 {
     exit();
 }
 
 global $wpdb;
 
-// Define easy-board plugin directory
-if (!defined('BOARD_PATH'))
+// Define easywp-board plugin directory
+if (!defined('_BOARD_PATH_'))
 {
-    define('BOARD_PATH', substr(plugin_dir_path(__FILE__),0,strlen(plugin_dir_path(__FILE__))-5));
+    define('_BOARD_PATH_', substr(plugin_dir_path(__FILE__),0,strlen(plugin_dir_path(__FILE__))-5));
 }
 
 // Include required class and schema files
-require_once(BOARD_PATH.'conf/func.inc.php');
+require_once(_BOARD_PATH_.'conf/func.inc.php');
 
