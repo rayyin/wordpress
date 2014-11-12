@@ -14,44 +14,50 @@
  * @brief Declare constants for generic use and for checking to avoid a direct call from the Web
  **/
 define('__EASYWP_BOARD__',   TRUE);
+define('__MODULE_NAME__',   "easywp-board");
 
 /**
  *	@brief Include the necessary configuration file
  **/
-require_once("conf/config.inc.php");
+require_once("conf/easybd-config.inc.php");
 
 /**
  *	@brief Hooks
  **/
-register_activation_hook(__FILE__, 'board_activate');
-register_uninstall_hook(__FILE__, 'board_uninstall');
+register_activation_hook(__FILE__, 'easybd_activate');
+register_deactivation_hook(__FILE__, 'easybd_deactivate');
+register_uninstall_hook(__FILE__, 'easybd_uninstall');
 
 /**
  * @brief Runs when plugin is activated
  **/
-if (!function_exists('board_activate'))
+if (!function_exists('easybd_activate'))
 {
-    var_Dump("dddddddddd");
-    function board_activate()
+    function easybd_activate()
     {
-        var_Dump("hahahahahahahh");
-        board_create_db_table();
-        exit();
-        //board_create_db_table();
-        //$template = wpab_create_template_file();
+        create_db_tables();
+    }
+}
+
+/**
+ *	@brief  Runs when a plugin is deactivated
+ **/
+if (!function_exists('easybd_deactivate'))
+{
+    function easybd_deactivate()
+    {
+        drop_db_tables();
     }
 }
 
 /**
  *	@brief  Runs when a plugin is deleted, not deactivated
  **/
-
-if (!function_exists('board_uninstall'))
+if (!function_exists('easybd_uninstall'))
 {
-    function board_uninstall()
+    function easybd_uninstall()
     {
-        var_Dump("dddddddddddddd");
-        //board_create_drop_table();
+        drop_db_tables();
     }
 }
 
