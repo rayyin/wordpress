@@ -26,6 +26,7 @@ if (!defined('EASYBD__PLUGIN_URL'))
 }
 
 // Include required class and schema files
+require_once(EASYBD__PLUGIN_URL."classes/easybd.class.php");
 require_once(EASYBD__PLUGIN_URL."classes/easybd-schema.class.php");
 require_once(EASYBD__PLUGIN_URL.'classes/easybd-context.class.php');
 require_once(EASYBD__PLUGIN_URL.'conf/easybd-func.inc.php');

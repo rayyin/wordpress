@@ -1,0 +1,135 @@
+<table name="modules"> wp_easybd_modules
+    <column name="module_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />  -- posts (ID)
+    <column name="module" type="varchar" size="80" notnull="notnull" index="idx_module" /> -- posts (post_name)
+    <column name="module_category_srl" type="number" size="11" default="0" index="idx_module_category" />  -- posts (post_type: page)
+    <column name="layout_srl" type="number" size="11" default="0" />  miss
+	<column name="use_mobile" type="char" size="1" default="N" /> wp_easywp_board_modules (use_mobile)
+    <column name="mlayout_srl" type="number" size="11" default="0" /> wp_easywp_board_module (mlayout_id)
+    <column name="menu_srl" type="number" size="11" default="0" /> miss
+    <column name="site_srl" type="number" size="11" notnull="notnull" default="0" /> miss
+    <column name="mid" type="varchar" size="40" notnull="notnull" /> wp_easywp_board_module (module_id int)
+    <column name="is_skin_fix" type="char" size="1" notnull="notnull" default="Y" /> miss
+    <column name="skin" type="varchar" size="250" /> wp_easywp_board_module (skin)
+    <column name="is_mskin_fix" type="char" size="1" notnull="notnull" default="Y" /> miss
+    <column name="mskin" type="varchar" size="250" />  wp_easywp_board_module (mskin)
+    <column name="browser_title" type="varchar" size="250" notnull="notnull" /> -- posts (post_title)
+    <column name="description" type="text" /> -- posts (post_content)
+    <column name="is_default" type="char" size="1" notnull="notnull" default="N" /> miss
+    <column name="content" type="bigtext" /> miss
+    <column name="mcontent" type="bigtext" /> miss
+    <column name="open_rss" type="char" size="1" notnull="notnull" default="Y" /> miss
+    <column name="header_text" type="text" /> miss
+    <column name="footer_text" type="text" /> miss
+    <column name="regdate" type="date" /> -- posts (post_date)
+</table>
+
+
+<table name="documents">
+    <column name="document_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" />  wp_easywp_board_documents (document_id)
+    <column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl" /> wp_easywp_board_documents (module_id reference by wp_easywp_board_modules)
+    <column name="category_srl" type="number" size="11" default="0" notnull="notnull" index="idx_category_srl" /> wp_easywp_board_documents (category_id wp_easywp_board_categories)
+	wp_easywp_board_documents (topic_id wp_easywp_board_topics)
+    <column name="lang_code" type="varchar" size="10" default="" notnull="notnull" /> wp_easywp_board_documents (lang_code)
+    <column name="is_notice" type="char" size="1" default="N" notnull="notnull" index="idx_is_notice" /> wp_easywp_board_documents (is_notice)
+    <column name="title" type="varchar" size="250" /> wp_easywp_board_documents (title)
+    <column name="title_bold" type="char" size="1" default="N" notnull="notnull" /> miss
+    <column name="title_color" type="varchar" size="7" /> miss
+    <column name="content" type="bigtext" notnull="notnull" /> wp_easywp_board_documents (content)
+    <column name="readed_count" type="number" size="11" default="0" notnull="notnull" index="idx_readed_count" /> wp_easywp_board_documents (readed_count)
+    <column name="voted_count" type="number" size="11" default="0" notnull="notnull" index="idx_voted_count" /> wp_easywp_board_documents (voted_count)
+    <column name="blamed_count" type="number" size="11" default="0" notnull="notnull" index="idx_blamed_count" /> wp_easywp_board_documents (blamed_count)
+    <column name="comment_count" type="number" size="11" default="0" notnull="notnull" index="idx_comment_count" /> wp_easywp_board_documents (comment_count)
+    <column name="trackback_count" type="number" size="11" default="0" notnull="notnull" index="idx_trackback_count" /> wp_easywp_board_documents (trackback_count)
+    <column name="uploaded_count" type="number" size="11" default="0" notnull="notnull" index="idx_uploaded_count" /> wp_easywp_board_documents (uploaded_count)
+    <column name="password" type="varchar" size="60" /> miss
+    <column name="user_id" type="varchar" size="80" /> wp_easywp_board_documents (user_id INT reference wp_users ID)
+    <column name="user_name" type="varchar" size="80" notnull="notnull" /> wp_easywp_board_documents (user_name) -> wp_user_nicename
+    <column name="nick_name" type="varchar" size="80" notnull="notnull" /> wp_easywp_board_documents (nick_name) -> wp_display_name
+    <column name="member_srl" type="number" size="11" notnull="notnull" index="idx_member_srl" />  miss
+    <column name="email_address" type="varchar" size="250" notnull="notnull" /> miss
+    <column name="homepage" type="varchar" size="250" notnull="notnull" /> miss
+    <column name="tags" type="text" /> wp_easywp_board_documents (tags)
+    <column name="extra_vars" type="text" /> wp_easywp_board_documents (extra_vars)
+    <column name="regdate" type="date" index="idx_regdate" /> wp_easywp_board_documents (regdate)
+    <column name="last_update" type="date" index="idx_last_update" />   wp_easywp_board_documents (last_update)
+    <column name="last_updater" type="varchar" size="80" /> wp_easywp_board_documents (last_updater_id  reference wp_users ID NULL )
+    <column name="ipaddress" type="varchar" size="128" notnull="notnull" index="idx_ipaddress" />wp_easywp_board_documents(ipaddress)
+    <column name="list_order" type="number" size="11" notnull="notnull" index="idx_list_order" />wp_easywp_board_documents(list_order)
+    <column name="update_order" type="number" size="11" notnull="notnull" index="idx_update_order" />wp_easywp_board_documents(update_order)
+    <column name="allow_trackback" type="char" size="1" default="Y" notnull="notnull" />wp_easywp_board_documents(allow_trackback)
+    <column name="notify_message" type="char" size="1" default="N" notnull="notnull" />wp_easywp_board_documents(notify_message)
+    <column name="status" type="varchar" size="20" default="PUBLIC" />wp_easywp_board_documents(status)
+    <column name="comment_status" type="varchar" size="20" default="ALLOW" />wp_easywp_board_documents(comment_status)
+</table>
+
+
+<table name="document_categories"> wp_easybd_document_categories
+    <column name="category_srl" type="number" size="11" default="0" notnull="notnull" primary_key="primary_key" /> category_id 
+    <column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl" /> module_id references wp_easybd_modules(module_id)
+    <column name="parent_srl" type="number" size="12" notnull="notnull" default="0" /> parent_id references wp_easybd_document_categories(category_id)
+    <column name="title" type="varchar" size="250" /> title
+    <column name="expand" type="char" size="1" default="N" /> expand
+    <column name="document_count" type="number" size="11" default="0" notnull="notnull" /> document_count
+    <column name="regdate" type="date" index="idx_regdate" /> regdate
+    <column name="last_update" type="date" /> last_update
+    <column name="list_order" type="number" size="11" notnull="notnull" /> list_order
+    <column name="group_srls" type="text" />
+    <column name="color" type="varchar" size="11" />
+	<column name="description" type="varchar" size="200" /> description
+</table>
+
+
+wp_easybd_forum_categories
+category_id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+module_id BIGINT(20) UNSIGNED NOT NULL,
+parent_id INT(11) UNSIGNED DEFAULT 0,
+name VARCHAR(250) NOT NULL,
+description VARCHAR(250) NOT NULL,
+forum_count INT(11),
+list_order INT(11),
+regdate DATE,
+last_update DATE,
+PRIMARY KEY (category_id),
+FOREIGN KEY (module_id) REFERENCES wp_easybd_modules(module_id) ON DELETE CASCADE ON UPDATE CASCADE
+FOREIGN KEY (parent_id) REFERENCES wp_easybd_forum_categories(category_id) ON DELETE CASCADE ON UPDATE CASCADE
+
+wp_easybd_forums
+forum_id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+module_id BIGINT(20) UNSIGNED NOT NULL, 
+category_id INT(11) UNSIGNED,
+parent_forum_id INT(11) UNSIGNED DEFAULT 0,
+name VARCHAR(250) NOT NULL,
+description VARCHAR(250) NOT NULL,
+document_count BIGINT(20),
+comment_count BIGINT(20),
+show_subforums CHAR(1) DEFAULT 'Y',
+list_order INT(11),
+regdate DATE,
+last_update DATE,
+
+
+<table name="comments"> wp_easybd_comments
+    <column name="comment_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" /> comment_id
+    <column name="module_srl" type="number" size="11" default="0" notnull="notnull" index="idx_module_srl" /> module_id ref
+	forum_id ref
+    <column name="document_srl" type="number" size="11" default="0" notnull="notnull" index="idx_document_srl" /> document_id ref
+    <column name="parent_srl" type="number" size="11" default="0" notnull="notnull" />parent_comment_id ref
+    <column name="is_secret" type="char" size="1" default="N" notnull="notnull" />is_secret
+    <column name="content" type="bigtext" notnull="notnull" />content
+    <column name="voted_count" type="number" size="11" default="0" notnull="notnull" index="idx_voted_count" />voted_count
+    <column name="blamed_count" type="number" size="11" default="0" notnull="notnull" index="idx_blamed_count" />blamed_count
+    <column name="notify_message" type="char" size="1" default="N" notnull="notnull" />notify_message
+    <column name="password" type="varchar" size="60" />
+    <column name="user_id" type="varchar" size="80" />user_id
+    <column name="user_name" type="varchar" size="80" notnull="notnull" />user_name
+    <column name="nick_name" type="varchar" size="80" notnull="notnull" />display_name
+    <column name="member_srl" type="number" size="11" notnull="notnull" index="idx_member_srl" />miss
+    <column name="email_address" type="varchar" size="250" notnull="notnull" />miss
+    <column name="homepage" type="varchar" size="250" notnull="notnull" />miss
+    <column name="uploaded_count" type="number" size="11" default="0" notnull="notnull" index="idx_uploaded_count" />uploaded_count
+    <column name="regdate" type="date" index="idx_regdate" />regdate
+    <column name="last_update" type="date" index="idx_last_update" />last_update
+    <column name="ipaddress" type="varchar" size="128" notnull="notnull" index="idx_ipaddress" />ipaddress
+    <column name="list_order" type="number" size="11" notnull="notnull" index="idx_list_order" />list_order
+    <column name="status" type="number" size="1" default="1" notnull="notnull" index="idx_status" />status
+</table>

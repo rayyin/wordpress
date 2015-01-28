@@ -24,10 +24,27 @@ require_once("conf/easybd-config.inc.php");
 /**
  *	@brief Hooks
  **/
-register_activation_hook(__FILE__, 'easybd_activate');
+add_action( 'init', array( 'Easybd', 'init' ));
+register_activation_hook( __FILE__, array( 'Easybd', 'activate_module' ));
+//add_action( 'init', array( 'Easybd', 'init' ) );
+
+
+
+//echo "<script type=\"text/javascript\">alert(hello);</script>";
+/**
+ *	@brief Hooks
+ **/
+//register_activation_hook(__FILE__, 'easybd_activate');
+register_activation_hook( __FILE__, array( 'Easybd', 'activate_module' ));
 register_deactivation_hook(__FILE__, 'easybd_deactivate');
 register_uninstall_hook(__FILE__, 'easybd_uninstall');
 
+/**
+ *	@brief Actions
+ **/
+add_action('admin_menu', 'easybd_admin_pages');
+
+//add_action( 'admin_footer', 'check_schema_changes' );
 /**
  * @brief Runs when plugin is activated
  **/
@@ -61,5 +78,45 @@ if (!function_exists('easybd_uninstall'))
     }
 }
 
+/**
+ *	@brief  Activate the module admin pages
+ **/
+if (!function_exists('easybd_admin_pages'))
+{
+    function easybd_admin_pages()
+    {
+        add_object_page('EasyWP Board Overview', 'EasyWP Board', 'manage_options', 'easybd_admin', 'easybd_admin_display', '');
+    }
+}
 
+/**
+ *	@brief  Activate the module admin pages
+ **/
+if (!function_exists('easybd_admin_display'))
+{
+    function easybd_admin_display()
+    {
+        //wpab_register_admin_styles();
+        //require_once('php/admin/wpab-admin-index.php');
+    }
+}
+
+
+/*function check_schema_changes() {
+?>
+    <script type="text/javascript" >
+        jQuery(document).ready(function($) {
+            var data = {
+                action: 'my_action',
+                whatever: 1234
+            };
+            ajaxurl = "conf/easybd-func.inc.php"
+            $.post(ajaxurl, data, function(response) {
+                alert('Got this from the server: ' + response);
+            });
+            alert("hahhhahhha");
+        });
+    </script>
+<?php
+}*/
 

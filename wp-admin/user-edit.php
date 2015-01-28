@@ -286,8 +286,10 @@ if ( !( IS_PROFILE_PAGE && !$user_can_edit ) ) : ?>
  * @since 2.7.0
  *
  * @param WP_User $profileuser The current WP_User object.
+ * @param WP_User $profileuser The current WP_User object.
  */
 do_action( 'personal_options', $profileuser );
+var_dump($profileuser->nickname);
 ?>
 </table>
 <?php
@@ -353,7 +355,7 @@ if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_c
 	<th><label for="last_name"><?php _e('Last Name') ?></label></th>
 	<td><input type="text" name="last_name" id="last_name" value="<?php echo esc_attr($profileuser->last_name) ?>" class="regular-text" /></td>
 </tr>
-
+<?php         var_dump($profileuser->nickname); ?>
 <tr>
 	<th><label for="nickname"><?php _e('Nickname'); ?> <span class="description"><?php _e('(required)'); ?></span></label></th>
 	<td><input type="text" name="nickname" id="nickname" value="<?php echo esc_attr($profileuser->nickname) ?>" class="regular-text" /></td>
