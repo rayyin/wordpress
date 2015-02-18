@@ -1,9 +1,9 @@
 <?php
 
 /*
-	Plugin Name: EasyWP Board
+	Plugin Name: EasyWP Forum
 	Plugin URI: https://github.com/rayyin/wordpress
-	Description: EasyWP board module
+	Description: EasyWP forum module
 	Version: 1.0.0
 	Author: Ray Yin
 	Author URI: https://github.com/rayyin
@@ -13,19 +13,20 @@
 /**
  * @brief Declare constants for generic use and for checking to avoid a direct call from the Web
  **/
-define('__EASYWP_BOARD__',   TRUE);
-define('__MODULE_NAME__',   "easywp-board");
+define('__EASYWP_FORUM__',   TRUE);
+define('__MODULE_NAME__',   "easywp-forum");
 
 /**
  *	@brief Include the necessary configuration file
  **/
-require_once("conf/easybd-config.inc.php");
+require_once("conf/forum-config.inc.php");
 /**
  *	@brief Hooks
  **/
-add_action( 'init', array( 'Easybd', 'init' ));
-register_activation_hook( __FILE__, array( 'Easybd', 'activate_module' ));
-//register_deactivation_hook(__FILE__, array( 'Easybd', 'deactivate_module' ));
+
+add_action( 'init', array( 'Forum', 'init' ));
+register_activation_hook( __FILE__, array( 'Forum', 'activate_module' ));
+register_deactivation_hook(__FILE__, array( 'Forum', 'deactivate_module' ));
 
 //echo "<script type=\"text/javascript\">alert(hello);</script>";
 /**
@@ -33,8 +34,8 @@ register_activation_hook( __FILE__, array( 'Easybd', 'activate_module' ));
  **/
 //register_activation_hook(__FILE__, 'easybd_activate');
 //register_activation_hook( __FILE__, array( 'Easybd', 'activate_module' ));
-register_deactivation_hook(__FILE__, 'easybd_deactivate');
-register_uninstall_hook(__FILE__, 'easybd_uninstall');
+//register_deactivation_hook(__FILE__, 'easybd_deactivate');
+//register_uninstall_hook(__FILE__, 'easybd_uninstall');
 
 /**
  *	@brief Actions

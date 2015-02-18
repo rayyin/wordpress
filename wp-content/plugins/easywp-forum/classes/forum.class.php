@@ -6,15 +6,17 @@
  * Time: 下午6:07
  * To change this template use File | Settings | File Templates.
  */
-class Easybd
+class Forum
 {
     private static $initiated = false;
-    private static $ebd_schema = null;
+    private static $forum_schema = null;
 
     public static function init() {
         if ( ! self::$initiated ) {
             self::init_hooks();
         }
+
+        //echo "init called";
     }
 
     /**
@@ -22,31 +24,33 @@ class Easybd
      */
     private static function init_hooks() {
         self::$initiated = true;
-        self::$initiated = Easybd_Schema::getInstance();;
-        add_action( 'easydb_create_db_schemas', array( 'Easybd', 'create_db_schemas' ));
-        add_action( 'easydb_drop_db_schemas', array( 'Easybd', 'drop_db_schemas' ));
+        self::$forum_schema = ForumSchema::getInstance();
+
+        //echo "init hooks called";
     }
 
     /**
      * @brief Runs when plugin is activated
      **/
     public static function activate_module() {
-        create_db_tables();
+        self::create_db_schemas();
     }
 
     /**
      * @brief Runs when plugin is deactivated
      **/
-    private static function deactivate_module() {
-        drop_db_schemas();
+    public static function deactivate_module() {
+        self::drop_db_schemas();
     }
 
     public static function create_db_schemas() {
-        self::$ebd_schema->create_module_init_tables();
+        $schema_instance = (self::$forum_schema == null) ? ForumSchema::getInstance():self::$forum_schema;
+        $schema_instance->create_module_init_tables();
     }
 
     public static function drop_db_schemas() {
-        self::$ebd_schema->drop_module_tables();
+        $schema_instance = (self::$forum_schema == null) ? ForumSchema::getInstance():self::$forum_schema;
+        $schema_instance->drop_module_tables();
     }
 
 
