@@ -25,8 +25,13 @@ require_once("conf/forum-config.inc.php");
  **/
 
 add_action( 'init', array( 'Forum', 'init' ));
+if ( is_admin() ) {
+    add_action( 'init', array( 'ForumAdmin', 'init' ) );
+}
+
 register_activation_hook( __FILE__, array( 'Forum', 'activate_module' ));
 register_deactivation_hook(__FILE__, array( 'Forum', 'deactivate_module' ));
+
 
 //echo "<script type=\"text/javascript\">alert(hello);</script>";
 /**
@@ -40,7 +45,7 @@ register_deactivation_hook(__FILE__, array( 'Forum', 'deactivate_module' ));
 /**
  *	@brief Actions
  **/
-add_action('admin_menu', 'easybd_admin_pages');
+//add_action('admin_menu', 'easybd_admin_pages');
 
 //add_action( 'admin_footer', 'check_schema_changes' );
 /**
@@ -83,7 +88,7 @@ if (!function_exists('easybd_admin_pages'))
 {
     function easybd_admin_pages()
     {
-        add_object_page('EasyWP Board Overview', 'EasyWP Board', 'manage_options', 'easybd_admin', 'easybd_admin_display', '');
+        add_object_page('EasyWP Board Overview', 'EasyWP Forum', 'manage_options', 'easybd_admin', 'easybd_admin_display', '');
     }
 }
 

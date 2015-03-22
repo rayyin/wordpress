@@ -8,3 +8,5 @@
  */
 
 //class boardAdminView extends board {
+
+asdasd

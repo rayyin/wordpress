@@ -27,6 +27,7 @@ if (!defined('FORUM__PLUGIN_URL'))
 
 // include required class and schema files
 require_once(FORUM__PLUGIN_URL."classes/forum.class.php");
+require_once(FORUM__PLUGIN_URL."classes/forum-admin.class.php");
 require_once(FORUM__PLUGIN_URL."classes/forum-schema.class.php");
 require_once(FORUM__PLUGIN_URL.'classes/forum-context.class.php');
 require_once(FORUM__PLUGIN_URL.'conf/forum-func.inc.php');

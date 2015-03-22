@@ -21,12 +21,12 @@ class ForumSchema
     }
 
     private function define_schemas(){
-        $this->module_schemas = array("FORUM_MODULE_TABLE"=>$this->forum_wpdb->prefix.'ezforum_modules');
-        $this->module_schemas["FORUM_CATEGORY_TABLE"] = $this->forum_wpdb->prefix.'ezforum_categories';
-        $this->module_schemas["FORUM_TABLE"] = $this->forum_wpdb->prefix.'ezforums';
-        $this->module_schemas["FORUM_DOCUMENT_CATEGORY_TABLE"] = $this->forum_wpdb->prefix.'ezforum_document_categories';
-        $this->module_schemas["FORUM_DOCUMENT_TABLE"] = $this->forum_wpdb->prefix.'ezforum_documents';
-        $this->module_schemas["FORUM_COMMENT_TABLE"] = $this->forum_wpdb->prefix.'ezforum_comments';
+        $this->module_schemas = array("FORUM_MODULE_TABLE"=>$this->forum_wpdb->prefix.'ezfrm_modules');
+        $this->module_schemas["FORUM_CATEGORY_TABLE"] = $this->forum_wpdb->prefix.'ezfrm_categories';
+        $this->module_schemas["FORUM_TABLE"] = $this->forum_wpdb->prefix.'ezfrm_forums';
+        $this->module_schemas["FORUM_DOCUMENT_CATEGORY_TABLE"] = $this->forum_wpdb->prefix.'ezfrm_document_categories';
+        $this->module_schemas["FORUM_DOCUMENT_TABLE"] = $this->forum_wpdb->prefix.'ezfrm_documents';
+        $this->module_schemas["FORUM_COMMENT_TABLE"] = $this->forum_wpdb->prefix.'ezfrm_comments';
 
         foreach ($this->module_schemas as $key => $schema) {
             if (!defined($key))
@@ -75,7 +75,7 @@ class ForumSchema
         $this->execute_query($create_forum_category_query,FORUM_CATEGORY_TABLE);
 
         //category_id INT(11) UNSIGNED DEFAULT 0,
-        //FOREIGN KEY (category_id) REFERENCES ".BOARD_FORUM_CATEGORY_TABLE."(category_id) ON DELETE CASCADE ON UPDATE CASCADE,
+        //FOREIGN KEY (category_id) REFERENCES ".FORUM_CATEGORY_TABLE."(category_id) ON DELETE CASCADE ON UPDATE CASCADE,
     }
 
     private function create_forum_table(){
@@ -83,6 +83,7 @@ class ForumSchema
                     forum_id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
                     module_id BIGINT(20) UNSIGNED NOT NULL,
                     parent_forum_id INT(11) UNSIGNED DEFAULT 0,
+                    category_id INT(11) UNSIGNED DEFAULT 0,
                     user_id BIGINT(20) UNSIGNED NOT NULL,
                     name VARCHAR(250) NOT NULL,
                     description VARCHAR(250) NOT NULL,
@@ -96,6 +97,7 @@ class ForumSchema
                     PRIMARY KEY (forum_id),
                     FOREIGN KEY (module_id) REFERENCES ".FORUM_MODULE_TABLE."(module_id) ON DELETE CASCADE ON UPDATE CASCADE,
                     FOREIGN KEY (parent_forum_id) REFERENCES ".FORUM_TABLE."(forum_id) ON DELETE CASCADE ON UPDATE CASCADE,
+                    FOREIGN KEY (category_id) REFERENCES ".FORUM_CATEGORY_TABLE."(category_id) ON DELETE CASCADE ON UPDATE CASCADE,
                     FOREIGN KEY (user_id) REFERENCES wp_users(ID)
                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
                 ";
@@ -132,6 +134,7 @@ class ForumSchema
                     document_id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
                     module_id BIGINT(20) UNSIGNED NOT NULL,
                     forum_id INT(11) UNSIGNED NOT NULL,
+                    category_id INT(11) UNSIGNED DEFAULT 0,
                     is_notice CHAR(1) DEFAULT 'N',
                     title VARCHAR(250) NOT NULL,
                     content TEXT NOT NULL,
@@ -160,6 +163,7 @@ class ForumSchema
                     PRIMARY KEY (document_id),
                     FOREIGN KEY (module_id) REFERENCES ".FORUM_MODULE_TABLE."(module_id) ON DELETE CASCADE ON UPDATE CASCADE,
                     FOREIGN KEY (forum_id) REFERENCES ".FORUM_TABLE."(forum_id) ON DELETE CASCADE ON UPDATE CASCADE,
+                    FOREIGN KEY (category_id) REFERENCES ".FORUM_DOCUMENT_CATEGORY_TABLE."(category_id) ON DELETE CASCADE ON UPDATE CASCADE,
                     FOREIGN KEY (user_id) REFERENCES wp_users(ID),
                     FOREIGN KEY (last_updater_id) REFERENCES wp_users(ID)
                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -221,7 +225,9 @@ class ForumSchema
 
     public function create_module_init_tables(){
         $this->create_module_table();
+        $this->create_forum_category_table();
         $this->create_forum_table();
+        $this->create_document_category_table();
         $this->create_document_table();
         $this->create_comment_table();
     }
